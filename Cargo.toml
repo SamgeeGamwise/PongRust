@@ -1,0 +1,9 @@
+[package]
+name = "Pong"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+macroquad = "0.4.15"
+derive_more = { version = "2.1.1", features = ["full"] }
+rand = "0.10.1"
