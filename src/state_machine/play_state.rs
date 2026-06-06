@@ -1,6 +1,5 @@
-use macroquad::prelude::{is_key_down, Vec2, WHITE};
+use macroquad::prelude::{is_key_down};
 use macroquad::prelude::KeyCode::{Down, Up, S, W};
-use macroquad::window::{screen_height, screen_width};
 use crate::ai::Ai;
 use crate::ball::Ball;
 use crate::directions::Direction;

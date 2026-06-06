@@ -1,5 +1,4 @@
 use derive_more::Constructor;
-use macroquad::color;
 use macroquad::color::Color;
 use macroquad::prelude::{draw_rectangle, Vec2};
 use crate::directions::Direction;
@@ -18,10 +17,10 @@ impl Paddle {
     pub fn update(&mut self, delta_time: f32, input_direction: Direction) {
         match input_direction {
             Direction::Up => {
-                self.position.y -= (self.speed * delta_time);
+                self.position.y -= self.speed * delta_time ;
             },
             Direction::Down => {
-                self.position.y += (self.speed * delta_time);
+                self.position.y += self.speed * delta_time ;
             },
             Direction::None => { },
         }
