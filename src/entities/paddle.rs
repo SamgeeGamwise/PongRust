@@ -10,23 +10,20 @@ pub struct Paddle {
     pub is_left: bool,
     pub is_player: bool,
     pub speed: f32,
-    pub color: Color
+    pub color: Color,
+    pub direction: Direction,
 }
 
 impl Paddle {
-    pub fn update(&mut self, delta_time: f32, input_direction: Direction) {
-        match input_direction {
-            Direction::Up => {
-                self.position.y -= self.speed * delta_time ;
-            },
-            Direction::Down => {
-                self.position.y += self.speed * delta_time ;
-            },
-            Direction::None => { },
-        }
-    }
-
     pub fn draw(&self) {
         draw_rectangle(self.position.x, self.position.y, self.size.x, self.size.y, self.color);
+    }
+    
+    pub fn get_direction(&self) -> Direction {
+        self.direction
+    }
+    
+    pub fn set_direction(&mut self, direction: Direction) {
+        self.direction = direction;
     }
 }

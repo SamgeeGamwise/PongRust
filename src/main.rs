@@ -1,9 +1,7 @@
-pub mod paddle;
 pub mod directions;
-pub mod ball;
 pub mod state_machine;
-pub mod entity_factory;
-pub mod ai;
+pub mod systems;
+pub mod entities;
 
 use macroquad::prelude::*;
 use crate::state_machine::play_state::PlayState;

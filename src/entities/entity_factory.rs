@@ -2,8 +2,9 @@ use macroquad::color::WHITE;
 use macroquad::math::Vec2;
 use macroquad::prelude::{screen_height, screen_width, Color};
 use rand::{ RngExt };
-use crate::ball::Ball;
-use crate::paddle::Paddle;
+use crate::entities::ball::Ball;
+use crate::directions::Direction;
+use crate::entities::paddle::Paddle;
 
 pub struct EntityFactory { }
 impl EntityFactory {
@@ -27,6 +28,7 @@ impl EntityFactory {
                 is_player,
                 speed: Self::PADDLE_SPEED,
                 color: Self::PADDLE_COLOR,
+                direction: Direction::None,
             }
         } else {
             Paddle {
@@ -36,6 +38,7 @@ impl EntityFactory {
                 is_player,
                 speed: Self::PADDLE_SPEED,
                 color: Self::PADDLE_COLOR,
+                direction: Direction::None,
             }
         }
     }
