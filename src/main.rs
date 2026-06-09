@@ -6,8 +6,11 @@ mod game;
 pub mod events;
 pub mod timer;
 pub mod game_state;
+mod audio_assets;
 
+use macroquad::audio;
 use macroquad::prelude::*;
+use crate::audio_assets::AudioAssets;
 use crate::state_machine::menu_state::MenuState;
 use crate::state_machine::state_machine::StateMachine;
 
@@ -26,8 +29,9 @@ fn window_conf() -> Conf {
 #[macroquad::main(window_conf)]
 async fn main() {
     let mut playing = true;
-    let mut state_machine = StateMachine::new();
+    let mut audio_assets = AudioAssets::new().await;
 
+    let mut state_machine = StateMachine::new();
     state_machine.push(Box::new(MenuState::new()));
 
 
@@ -36,10 +40,10 @@ async fn main() {
             playing = false;
         }
 
-        let delta_time = get_frame_time();
+        let delta_time = get_frame_time(); 
 
 
-        state_machine.update(delta_time);
+        state_machine.update(delta_time, &mut audio_assets);
 
         let scale = f32::min(
             screen_width() / GAME_WIDTH,

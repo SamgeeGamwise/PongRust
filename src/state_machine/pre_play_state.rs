@@ -1,4 +1,5 @@
 use macroquad::prelude::{draw_text, WHITE};
+use crate::audio_assets::AudioAssets;
 use crate::events::state_events::StateEvent;
 use crate::timer::Timer;
 use super::state::State;
@@ -21,7 +22,7 @@ impl PrePlayState {
 
 impl State for PrePlayState {
 
-    fn update(&mut self, delta_time: f32) -> StateEvent {
+    fn update(&mut self, delta_time: f32, audio_assets: &mut AudioAssets) -> StateEvent {
         if self.timer.finished() {
             StateEvent::Pop
         } else {

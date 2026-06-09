@@ -1,15 +1,11 @@
+use crate::audio_assets::AudioAssets;
 use crate::systems::input_system::InputSystem;
 use crate::entities::ball::Ball;
 use crate::entities::paddle::Paddle;
 use crate::entities::entity_factory::EntityFactory;
 use crate::events::game_events::GameEvent;
 use crate::game_state::GameState;
-use crate::systems::ai_system::AiSystem;
-use crate::systems::collision_system::CollisionSystem;
-use crate::systems::game_state_system::GameStateSystem;
-use crate::systems::movement_system::MovementSystem;
-use crate::systems::render_system::RenderSystem;
-use crate::systems::score_system::ScoreSystem;
+use crate::systems::*;
 
 pub struct Game {
     left_paddle: Paddle,
@@ -41,13 +37,14 @@ impl Game {
         self.events.clear();
     }
 
-    pub fn update(&mut self, delta_time: f32) {
+    pub fn update(&mut self, delta_time: f32, audio_assets: &mut AudioAssets) {
         InputSystem::update(&mut self.left_paddle, &mut self.right_paddle, &mut self.events);
         AiSystem::update(&mut self.left_paddle, &mut self.right_paddle, &self.ball);
         MovementSystem::update(delta_time, &mut self.left_paddle, &mut self.right_paddle, &mut self.ball);
         CollisionSystem::update(&mut self.left_paddle, &mut self.right_paddle, &mut self.ball, &mut self.events);
         ScoreSystem::update(&mut self.events, &mut self.game_state);
         GameStateSystem::update(&mut self.events, &mut self.game_state);
+        SfxSystem::update(&mut self.events, audio_assets);
     }
 
     pub fn draw(&self) -> () {

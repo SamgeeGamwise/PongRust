@@ -1,6 +1,8 @@
+use macroquad::audio::play_sound_once;
 use macroquad::input::is_key_pressed;
 use macroquad::prelude::{draw_text, WHITE};
 use macroquad::prelude::KeyCode::Space;
+use crate::audio_assets::AudioAssets;
 use crate::events::state_events::StateEvent;
 use super::state::State;
 
@@ -17,8 +19,9 @@ impl PauseState {
 
 impl State for PauseState {
 
-    fn update(&mut self, _delta_time: f32) -> StateEvent {
+    fn update(&mut self, _delta_time: f32, audio_assets: &mut AudioAssets) -> StateEvent {
         if is_key_pressed(Space) {
+            play_sound_once(&audio_assets.pause);
             StateEvent::Pop
         } else {
             StateEvent::None

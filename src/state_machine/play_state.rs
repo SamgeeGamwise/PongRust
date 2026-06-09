@@ -1,3 +1,5 @@
+use macroquad::audio::play_sound_once;
+use crate::audio_assets::AudioAssets;
 use crate::events::game_events::GameEvent;
 use crate::events::state_events::StateEvent;
 use crate::game::Game;
@@ -16,11 +18,11 @@ impl PlayState {
         let game = Game::new(game_state);
 
         Self {
-            game
+            game,
         }
     }
 
-    fn handle_game_events(&mut self) -> StateEvent {
+    fn handle_game_events(&mut self, audio_assets: &mut AudioAssets) -> StateEvent {
         let game_state = self.game.game_state;
         let events = std::mem::take(&mut self.game.events);
 
@@ -46,10 +48,10 @@ impl PlayState {
 
 
 impl State for PlayState {
-    fn update(&mut self, delta_time: f32) -> StateEvent {
-        self.game.update(delta_time);
+    fn update(&mut self, delta_time: f32, audio_assets: &mut AudioAssets) -> StateEvent {
+        self.game.update(delta_time, audio_assets);
 
-        self.handle_game_events()
+        self.handle_game_events(audio_assets)
     }
 
     fn draw(&self) -> () {

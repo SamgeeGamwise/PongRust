@@ -1,7 +1,8 @@
+use macroquad::audio::play_sound_once;
 use macroquad::prelude::{
     draw_text, is_key_pressed, KeyCode, WHITE, YELLOW,
 };
-
+use crate::audio_assets::AudioAssets;
 use crate::events::state_events::StateEvent;
 use crate::game_state::GameState;
 use crate::state_machine::play_state::PlayState;
@@ -33,16 +34,20 @@ impl MenuState {
 }
 
 impl State for MenuState {
-    fn update(&mut self, _delta_time: f32) -> StateEvent {
+    fn update(&mut self, _delta_time: f32, audio_assets: &mut AudioAssets) -> StateEvent {
         if is_key_pressed(KeyCode::W) {
+            play_sound_once(&audio_assets.menu_select);
             self.move_up();
         }
 
         if is_key_pressed(KeyCode::S) {
+            play_sound_once(&audio_assets.menu_select);
             self.move_down();
         }
 
         if is_key_pressed(KeyCode::Enter) || is_key_pressed(KeyCode::Space) {
+            play_sound_once(&audio_assets.menu_select);
+            
             match self.selected_index {
                 0 => {
                     return StateEvent::SwitchMany(vec![

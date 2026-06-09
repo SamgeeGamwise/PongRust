@@ -1,3 +1,4 @@
+use crate::audio_assets::AudioAssets;
 use crate::events::state_events::StateEvent;
 use crate::state_machine::state::State;
 
@@ -28,9 +29,9 @@ impl StateMachine {
         }
     }
 
-    pub fn update(&mut self, delta_time: f32) {
+    pub fn update(&mut self, delta_time: f32, audio_assets: &mut AudioAssets) {
         let event = match self.peek() {
-            Some(state) => state.update(delta_time),
+            Some(state) => state.update(delta_time, audio_assets),
             None => StateEvent::None,
         };
 
