@@ -4,6 +4,7 @@ pub enum GameEvent {
     LeftPlayerScored,
     RightPlayerScored,
 
+    Pause,
     ResetRound,
     GameOver,
 }

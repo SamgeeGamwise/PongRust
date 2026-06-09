@@ -72,7 +72,7 @@ impl State for MenuState {
     fn draw(&self) {
         draw_text("Pong", 100.0, 80.0, 50.0, WHITE);
 
-        let options = ["1P", "2P", "Quit"];
+        let options = ["1P (WASD)", "2P (WASD + Arrow Keys) ", "Quit"];
 
         for (index, option) in options.iter().enumerate() {
             let y = 150.0 + index as f32 * 40.0;

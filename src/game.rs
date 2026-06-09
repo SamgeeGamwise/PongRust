@@ -42,7 +42,7 @@ impl Game {
     }
 
     pub fn update(&mut self, delta_time: f32) {
-        InputSystem::update(&mut self.left_paddle, &mut self.right_paddle);
+        InputSystem::update(&mut self.left_paddle, &mut self.right_paddle, &mut self.events);
         AiSystem::update(&mut self.left_paddle, &mut self.right_paddle, &self.ball);
         MovementSystem::update(delta_time, &mut self.left_paddle, &mut self.right_paddle, &mut self.ball);
         CollisionSystem::update(&mut self.left_paddle, &mut self.right_paddle, &mut self.ball, &mut self.events);

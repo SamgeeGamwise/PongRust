@@ -3,6 +3,7 @@ use crate::events::state_events::StateEvent;
 use crate::game::Game;
 use crate::game_state::GameState;
 use crate::state_machine::game_over_state::GameOverState;
+use crate::state_machine::pause_state::PauseState;
 use crate::state_machine::pre_play_state::PrePlayState;
 use super::state::State;
 
@@ -28,6 +29,9 @@ impl State for PlayState {
 
         for event in &self.game.events {
             match event {
+                GameEvent::Pause => {
+                    return StateEvent::Push(Box::new(PauseState::new()));
+                },
                 GameEvent::GameOver => {
                     return StateEvent::Push(Box::new(GameOverState::new(self.game.game_state)));
                 },
