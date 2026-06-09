@@ -11,12 +11,17 @@ pub struct Ball {
 }
 
 impl Ball {
+    const SPEED_UP_PERCENTAGE: f32 = 1.1;
     pub fn bounce(&mut self, intercepted: bool) {
         if intercepted {
             self.direction.x *= -1.0;
         } else {
             self.direction.y *= -1.0;
         }
+    }
+
+    pub fn speed_up(&mut self) {
+        self.speed *= Self::SPEED_UP_PERCENTAGE;
     }
 
     pub fn draw(&self) {

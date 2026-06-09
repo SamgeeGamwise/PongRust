@@ -22,7 +22,8 @@ impl CollisionSystem {
         if Self::rects_overlap(paddle.rectangle, ball.rectangle) {
             ball.bounce(true);
             events.push(GameEvent::BallHitPaddle);
-
+            ball.speed_up();
+            
             if paddle.is_left {
                 ball.rectangle.x = paddle.rectangle.x + paddle.rectangle.w;
             } else {
