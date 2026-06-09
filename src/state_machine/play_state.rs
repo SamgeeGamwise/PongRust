@@ -20,20 +20,17 @@ impl PlayState {
         }
     }
 
-}
+    fn handle_game_events(&mut self) -> StateEvent {
+        let game_state = self.game.game_state;
+        let events = std::mem::take(&mut self.game.events);
 
-
-impl State for PlayState {
-    fn update(&mut self, delta_time: f32) -> StateEvent {
-        self.game.update(delta_time);
-
-        for event in &self.game.events {
+        for event in events {
             match event {
                 GameEvent::Pause => {
                     return StateEvent::Push(Box::new(PauseState::new()));
                 },
                 GameEvent::GameOver => {
-                    return StateEvent::Push(Box::new(GameOverState::new(self.game.game_state)));
+                    return StateEvent::Push(Box::new(GameOverState::new(game_state)));
                 },
                 GameEvent::ResetRound => {
                     self.game.reset();
@@ -43,9 +40,16 @@ impl State for PlayState {
             }
         }
 
-        self.game.events.clear();
-
         StateEvent::None
+    }
+}
+
+
+impl State for PlayState {
+    fn update(&mut self, delta_time: f32) -> StateEvent {
+        self.game.update(delta_time);
+
+        self.handle_game_events()
     }
 
     fn draw(&self) -> () {
