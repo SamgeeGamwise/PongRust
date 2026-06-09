@@ -8,10 +8,7 @@ pub mod timer;
 pub mod game_state;
 
 use macroquad::prelude::*;
-use crate::game_state::GameState;
 use crate::state_machine::menu_state::MenuState;
-use crate::state_machine::play_state::PlayState;
-use crate::state_machine::pre_play_state::PrePlayState;
 use crate::state_machine::state_machine::StateMachine;
 
 pub const GAME_WIDTH: f32 = 720.0;

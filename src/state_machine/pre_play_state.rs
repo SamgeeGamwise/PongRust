@@ -1,6 +1,5 @@
 use macroquad::prelude::{draw_text, WHITE};
 use crate::events::state_events::StateEvent;
-use crate::state_machine::play_state::PlayState;
 use crate::timer::Timer;
 use super::state::State;
 

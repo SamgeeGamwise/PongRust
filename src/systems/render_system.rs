@@ -1,4 +1,4 @@
-use macroquad::prelude::{measure_text, BLACK, WHITE};
+use macroquad::prelude::{measure_text, WHITE};
 use macroquad::text::draw_text;
 use crate::entities::ball::Ball;
 use crate::entities::paddle::Paddle;

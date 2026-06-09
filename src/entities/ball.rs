@@ -1,7 +1,6 @@
 use derive_more::Constructor;
 use macroquad::color::Color;
 use macroquad::prelude::{draw_rectangle, Rect, Vec2};
-use crate::entities::entity_factory::EntityFactory;
 
 #[derive(Constructor, Clone, Copy)]
 pub struct Ball {
