@@ -16,10 +16,10 @@ impl SfxSystem {
                 GameEvent::GameOver => {
                     play_sound_once(&audio_assets.game_over);
                 },
-                GameEvent::BallHitPaddle => {
+                GameEvent::BallHitLeftPaddle | GameEvent::BallHitRightPaddle => {
                     play_sound_once(&audio_assets.paddle_hit);
                 },
-                GameEvent::BallHitWall => {
+                GameEvent::BallHitTopWall | GameEvent::BallHitBottomWall => {
                     play_sound_once(&audio_assets.wall_hit);
                 },
                 GameEvent::Pause => {

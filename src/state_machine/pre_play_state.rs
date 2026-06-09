@@ -31,7 +31,7 @@ impl State for PrePlayState {
         }
     }
 
-    fn draw(&self) -> () {
+    fn draw(&mut self) -> () {
         draw_text("Get Ready", 100.0, 100.0, 40.0, WHITE);
     }
 

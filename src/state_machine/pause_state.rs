@@ -28,7 +28,7 @@ impl State for PauseState {
         }
     }
 
-    fn draw(&self) -> () {
+    fn draw(&mut self) -> () {
         draw_text("Paused", 100.0, 100.0, 40.0, WHITE);
     }
 

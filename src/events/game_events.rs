@@ -1,6 +1,8 @@
 pub enum GameEvent {
-    BallHitPaddle,
-    BallHitWall,
+    BallHitLeftPaddle,
+    BallHitRightPaddle,
+    BallHitTopWall,
+    BallHitBottomWall,
     LeftPlayerScored,
     RightPlayerScored,
 

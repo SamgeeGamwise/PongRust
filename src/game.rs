@@ -6,6 +6,7 @@ use crate::entities::entity_factory::EntityFactory;
 use crate::events::game_events::GameEvent;
 use crate::game_state::GameState;
 use crate::systems::*;
+use crate::systems::particle_system::ParticleSystem;
 
 pub struct Game {
     left_paddle: Paddle,
@@ -13,6 +14,7 @@ pub struct Game {
     ball: Ball,
     pub game_state: GameState,
     pub events: Vec<GameEvent>,
+    pub particle_system: ParticleSystem
 }
 
 impl Game {
@@ -25,8 +27,9 @@ impl Game {
             left_paddle,
             right_paddle,
             ball,
+            game_state,
             events: Vec::new(),
-            game_state
+            particle_system: ParticleSystem::new()
         }
     }
 
@@ -45,9 +48,11 @@ impl Game {
         ScoreSystem::update(&mut self.events, &mut self.game_state);
         GameStateSystem::update(&mut self.events, &mut self.game_state);
         SfxSystem::update(&mut self.events, audio_assets);
+        self.particle_system.update(&mut self.events, &mut self.ball, &mut self.left_paddle, &mut self.right_paddle);
     }
 
-    pub fn draw(&self) -> () {
+    pub fn draw(&mut self) -> () {
         RenderSystem::draw(self.left_paddle, self.right_paddle, self.ball, self.game_state);
+        self.particle_system.draw();
     }
 }

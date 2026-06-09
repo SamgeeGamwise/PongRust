@@ -73,7 +73,7 @@ impl State for GameOverState {
         StateEvent::None
     }
 
-    fn draw(&self) {
+    fn draw(&mut self) {
         draw_text("Game Over!", 100.0, 100.0, 40.0, WHITE);
 
         let options = ["Play Again", "Go To Menu"];

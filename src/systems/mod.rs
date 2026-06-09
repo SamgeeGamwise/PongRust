@@ -6,6 +6,7 @@ pub mod collision_system;
 pub mod score_system;
 pub mod game_state_system;
 pub mod sfx_system;
+pub mod particle_system;
 
 pub use self::movement_system::MovementSystem;
 pub use self::render_system::RenderSystem;

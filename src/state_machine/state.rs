@@ -3,7 +3,7 @@ use crate::events::state_events::StateEvent;
 
 pub trait State {
     fn update(&mut self, delta_time: f32, audio_assets: &mut AudioAssets) -> StateEvent;
-    fn draw(&self) -> ();
+    fn draw(&mut self) -> ();
     fn blocks_update_below(&self) -> bool {
         true
     }

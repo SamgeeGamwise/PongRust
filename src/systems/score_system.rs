@@ -12,7 +12,7 @@ impl ScoreSystem {
                 GameEvent::RightPlayerScored => {
                     game_state.right_paddle_score += 1;
                 },
-                GameEvent::BallHitPaddle => {
+                GameEvent::BallHitLeftPaddle | GameEvent::BallHitRightPaddle => {
                     game_state.volley_count += 1;
                 },
                 _ => {}

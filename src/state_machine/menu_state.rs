@@ -74,7 +74,7 @@ impl State for MenuState {
         StateEvent::None
     }
 
-    fn draw(&self) {
+    fn draw(&mut self) {
         draw_text("Pong", 100.0, 80.0, 50.0, WHITE);
 
         let options = ["1P (WASD)", "2P (WASD + Arrow Keys) ", "Quit"];

@@ -21,12 +21,13 @@ impl CollisionSystem {
     fn ball_hits_paddle(paddle: &mut Paddle, ball: &mut Ball, events: &mut Vec<GameEvent>) {
         if Self::rects_overlap(paddle.rectangle, ball.rectangle) {
             ball.bounce(true);
-            events.push(GameEvent::BallHitPaddle);
             ball.speed_up();
-            
+
             if paddle.is_left {
+                events.push(GameEvent::BallHitLeftPaddle);
                 ball.rectangle.x = paddle.rectangle.x + paddle.rectangle.w;
             } else {
+                events.push(GameEvent::BallHitRightPaddle);
                 ball.rectangle.x = paddle.rectangle.x - ball.rectangle.w;
             }
         }
@@ -36,11 +37,11 @@ impl CollisionSystem {
         if ball.rectangle.y < 0.0 {
             ball.bounce(false);
             ball.rectangle.y = 0.0;
-            events.push(GameEvent::BallHitWall);
+            events.push(GameEvent::BallHitTopWall);
         } else if ball.rectangle.y + ball.rectangle.h > GAME_HEIGHT {
             ball.bounce(false);
             ball.rectangle.y = GAME_HEIGHT - ball.rectangle.h;
-            events.push(GameEvent::BallHitWall);
+            events.push(GameEvent::BallHitBottomWall);
         }
     }
 

@@ -53,7 +53,7 @@ impl State for PlayState {
         self.handle_game_events(audio_assets)
     }
 
-    fn draw(&self) -> () {
+    fn draw(&mut self) -> () {
         self.game.draw();
     }
 }
