@@ -17,11 +17,11 @@ impl InputSystem {
 
     pub fn set_paddle_direction(paddle: &mut Paddle, up_key: KeyCode, down_key: KeyCode) {
         if is_key_down(up_key) {
-            paddle.set_direction(Direction::Up);
+            paddle.direction = Direction::Up;
         } else if is_key_down(down_key) {
-            paddle.set_direction(Direction::Down);
+            paddle.direction = Direction::Down;
         } else {
-            paddle.set_direction(Direction::None);
+            paddle.direction = Direction::None;
         }
     }
 }

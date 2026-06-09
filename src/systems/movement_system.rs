@@ -1,7 +1,7 @@
-use macroquad::prelude::screen_height;
 use crate::entities::ball::Ball;
 use crate::directions::Direction;
 use crate::entities::paddle::Paddle;
+use crate::GAME_HEIGHT;
 
 pub struct MovementSystem {
 
@@ -16,7 +16,7 @@ impl MovementSystem {
     }
 
     pub fn move_paddle(delta_time: f32, paddle: &mut Paddle) {
-        match paddle.get_direction() {
+        match paddle.direction {
             Direction::Up => {
                 let mut new_y = paddle.rectangle.y - paddle.speed * delta_time;
 
@@ -29,8 +29,8 @@ impl MovementSystem {
             Direction::Down => {
                 let mut new_y = paddle.rectangle.y + paddle.speed * delta_time;
 
-                if new_y + paddle.rectangle.h > screen_height() {
-                    new_y = screen_height() - paddle.rectangle.h  ;
+                if new_y + paddle.rectangle.h > GAME_HEIGHT {
+                    new_y = GAME_HEIGHT - paddle.rectangle.h;
                 }
 
                 paddle.rectangle.y = new_y;
@@ -43,7 +43,7 @@ impl MovementSystem {
         let new_x = ball.rectangle.x + ((ball.speed * ball.direction.x) * delta_time);
         let new_y = ball.rectangle.y + ((ball.speed * ball.direction.y) * delta_time);
 
-        if new_y < 0.0 || new_y + ball.rectangle.h > screen_height(){
+        if new_y < 0.0 || new_y + ball.rectangle.h > GAME_HEIGHT {
             ball.direction.y *= -1.0;
             ball.rectangle.x += (ball.speed * ball.direction.x) * delta_time;
             ball.rectangle.y += (ball.speed * ball.direction.y) * delta_time;

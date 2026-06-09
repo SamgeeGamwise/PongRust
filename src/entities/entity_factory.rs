@@ -1,10 +1,11 @@
 use macroquad::color::WHITE;
 use macroquad::math::Vec2;
-use macroquad::prelude::{screen_height, screen_width, Color, Rect};
+use macroquad::prelude::{Color, Rect};
 use rand::{ RngExt };
 use crate::entities::ball::Ball;
 use crate::directions::Direction;
 use crate::entities::paddle::Paddle;
+use crate::{GAME_HEIGHT, GAME_WIDTH};
 
 pub struct EntityFactory { }
 impl EntityFactory {
@@ -24,7 +25,7 @@ impl EntityFactory {
             Paddle {
                 rectangle: Rect::new(
                     Self::PADDLE_OFF_WALL,
-                    EntityFactory::middle_of_screen(screen_height(), Self::PADDLE_HEIGHT),
+                    EntityFactory::middle_of_screen(GAME_HEIGHT, Self::PADDLE_HEIGHT),
                     Self::PADDLE_WIDTH,
                     Self::PADDLE_HEIGHT
                 ),
@@ -37,8 +38,8 @@ impl EntityFactory {
         } else {
             Paddle {
                 rectangle: Rect::new(
-                    screen_width() - Self::PADDLE_OFF_WALL - Self::PADDLE_WIDTH,
-                    EntityFactory::middle_of_screen(screen_height(), Self::PADDLE_HEIGHT),
+                    GAME_WIDTH - Self::PADDLE_OFF_WALL - Self::PADDLE_WIDTH,
+                    EntityFactory::middle_of_screen(GAME_HEIGHT, Self::PADDLE_HEIGHT),
                     Self::PADDLE_WIDTH,
                     Self::PADDLE_HEIGHT
                 ),
@@ -64,8 +65,8 @@ impl EntityFactory {
 
         Ball {
             rectangle: Rect::new(
-                Self::middle_of_screen(screen_width(), Self::BALL_WIDTH),
-                Self::middle_of_screen(screen_height(), Self::BALL_HEIGHT),
+                Self::middle_of_screen(GAME_WIDTH, Self::BALL_WIDTH),
+                Self::middle_of_screen(GAME_HEIGHT, Self::BALL_HEIGHT),
                 Self::BALL_WIDTH,
                 Self::BALL_HEIGHT
             ),

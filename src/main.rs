@@ -8,12 +8,24 @@ use macroquad::prelude::*;
 use crate::state_machine::play_state::PlayState;
 use crate::state_machine::state_machine::StateMachine;
 
-#[macroquad::main("MyGame")]
+pub const GAME_WIDTH: f32 = 320.0;
+pub const GAME_HEIGHT: f32 = 240.0;
+
+fn window_conf() -> Conf {
+    Conf {
+        window_title: "Pong".to_owned(),
+        fullscreen: true,
+        window_resizable: true,
+        ..Default::default()
+    }
+}
+
+#[macroquad::main(window_conf)]
 async fn main() {
     let mut playing = true;
     let mut state_machine = StateMachine::new();
 
-    (&mut state_machine).push(Box::new(PlayState::new()));
+    state_machine.push(Box::new(PlayState::new()));
 
 
     while playing {
@@ -22,17 +34,40 @@ async fn main() {
         }
 
         let delta_time = get_frame_time();
-        (&mut state_machine).update(delta_time);
 
 
-        clear_background(BLACK);
+        state_machine.update(delta_time);
 
-        (&mut state_machine).draw();
+        let scale = f32::min(
+            screen_width() / GAME_WIDTH,
+            screen_height() / GAME_HEIGHT,
+        );
 
+        let viewport_width = (GAME_WIDTH * scale).round();
+        let viewport_height = (GAME_HEIGHT * scale).round();
 
-        // draw_line(40.0, 40.0, 100.0, 200.0, 15.0, BLUE);
-        // draw_rectangle(screen_width() / 2.0 - 60.0, 100.0, 120.0, 60.0, GREEN);
-        // draw_text("Hello, Macroquad!", 20.0, 20.0, 30.0, DARKGRAY);
+        let viewport_x = ((screen_width() - viewport_width) / 2.0).round();
+        let viewport_y_top = ((screen_height() - viewport_height) / 2.0).round();
+        let viewport_y = (screen_height() - viewport_y_top - viewport_height).round();
+
+        clear_background(WHITE);
+
+        set_camera(&Camera2D {
+            target: vec2(GAME_WIDTH / 2.0, GAME_HEIGHT / 2.0),
+            zoom: vec2(2.0 / GAME_WIDTH, 2.0 / GAME_HEIGHT),
+            viewport: Some((
+                viewport_x as i32,
+                viewport_y as i32,
+                viewport_width as i32,
+                viewport_height as i32,
+            )),
+            ..Default::default()
+        });
+
+        draw_rectangle(0.0, 0.0, GAME_WIDTH, GAME_HEIGHT, BLACK);
+        state_machine.draw();
+
+        set_default_camera();
 
         next_frame().await
     }

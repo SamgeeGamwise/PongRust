@@ -17,12 +17,4 @@ impl Paddle {
     pub fn draw(&self) {
         draw_rectangle(self.rectangle.x, self.rectangle.y, self.rectangle.w, self.rectangle.h, self.color);
     }
-    
-    pub fn get_direction(&self) -> Direction {
-        self.direction
-    }
-    
-    pub fn set_direction(&mut self, direction: Direction) {
-        self.direction = direction;
-    }
 }
