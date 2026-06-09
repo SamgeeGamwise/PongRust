@@ -8,7 +8,6 @@ pub mod timer;
 pub mod game_state;
 mod audio_assets;
 
-use macroquad::audio;
 use macroquad::prelude::*;
 use crate::audio_assets::AudioAssets;
 use crate::state_machine::menu_state::MenuState;

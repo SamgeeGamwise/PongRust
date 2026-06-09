@@ -22,7 +22,7 @@ impl PrePlayState {
 
 impl State for PrePlayState {
 
-    fn update(&mut self, delta_time: f32, audio_assets: &mut AudioAssets) -> StateEvent {
+    fn update(&mut self, delta_time: f32, _audio_assets: &mut AudioAssets) -> StateEvent {
         if self.timer.finished() {
             StateEvent::Pop
         } else {
