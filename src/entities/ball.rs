@@ -11,6 +11,14 @@ pub struct Ball {
 }
 
 impl Ball {
+    pub fn bounce(&mut self, intercepted: bool) {
+        if intercepted {
+            self.direction.x *= -1.0;
+        } else {
+            self.direction.y *= -1.0;
+        }
+    }
+
     pub fn draw(&self) {
         draw_rectangle(self.rectangle.x, self.rectangle.y, self.rectangle.w, self.rectangle.h, self.color);
     }

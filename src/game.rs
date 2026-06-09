@@ -2,15 +2,20 @@ use crate::systems::input_system::InputSystem;
 use crate::entities::ball::Ball;
 use crate::entities::paddle::Paddle;
 use crate::entities::entity_factory::EntityFactory;
+use crate::events::game_events::GameEvent;
 use crate::systems::ai_system::AiSystem;
 use crate::systems::collision_system::CollisionSystem;
+use crate::systems::game_state_system::GameStateSystem;
 use crate::systems::movement_system::MovementSystem;
 use crate::systems::render_system::RenderSystem;
+use crate::systems::score_system::ScoreSystem;
 
 pub struct Game {
     left_paddle: Paddle,
     right_paddle: Paddle,
     ball: Ball,
+    score_system: ScoreSystem,
+    pub events: Vec<GameEvent>,
 }
 
 impl Game {
@@ -22,7 +27,9 @@ impl Game {
         Self {
             left_paddle,
             right_paddle,
-            ball
+            ball,
+            events: Vec::new(),
+            score_system: ScoreSystem::new()
         }
     }
 
@@ -30,7 +37,9 @@ impl Game {
         InputSystem::update(&mut self.left_paddle, &mut self.right_paddle);
         AiSystem::update(&mut self.left_paddle, &mut self.right_paddle, &self.ball);
         MovementSystem::update(delta_time, &mut self.left_paddle, &mut self.right_paddle, &mut self.ball);
-        CollisionSystem::update(&mut self.left_paddle, &mut self.right_paddle, &mut self.ball);
+        CollisionSystem::update(&mut self.left_paddle, &mut self.right_paddle, &mut self.ball, &mut self.events);
+        self.score_system.update(&mut self.events);
+        GameStateSystem::update(&mut self.events);
     }
 
     pub fn draw(&self) -> () {

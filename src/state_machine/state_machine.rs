@@ -1,3 +1,4 @@
+use crate::events::state_events::StateEvent;
 use crate::state_machine::state::State;
 
 pub struct StateMachine {
@@ -28,11 +29,31 @@ impl StateMachine {
     }
 
     pub fn update(&mut self, delta_time: f32) {
-        if let Some(state) = self.peek() {
-            state.update(delta_time);
+        let event = match self.peek() {
+            Some(state) => state.update(delta_time),
+            None => StateEvent::None,
+        };
+
+        self.apply_state_event(event);
+    }
+    fn apply_state_event(&mut self, event: StateEvent) {
+        match event {
+            StateEvent::None => {}
+
+            StateEvent::Push(state) => {
+                self.push(state);
+            }
+
+            StateEvent::Pop => {
+                self.pop();
+            }
+
+            StateEvent::Switch(state) => {
+                self.pop();
+                self.push(state);
+            }
         }
     }
-
     pub fn draw(&mut self) {
         if let Some(state) = self.peek() {
             state.draw();

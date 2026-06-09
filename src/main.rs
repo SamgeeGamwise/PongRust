@@ -3,13 +3,16 @@ pub mod state_machine;
 pub mod systems;
 pub mod entities;
 mod game;
+pub mod events;
+pub mod timer;
 
 use macroquad::prelude::*;
 use crate::state_machine::play_state::PlayState;
+use crate::state_machine::pre_play_state::PrePlayState;
 use crate::state_machine::state_machine::StateMachine;
 
-pub const GAME_WIDTH: f32 = 320.0;
-pub const GAME_HEIGHT: f32 = 240.0;
+pub const GAME_WIDTH: f32 = 720.0;
+pub const GAME_HEIGHT: f32 = 480.0;
 
 fn window_conf() -> Conf {
     Conf {
@@ -25,7 +28,7 @@ async fn main() {
     let mut playing = true;
     let mut state_machine = StateMachine::new();
 
-    state_machine.push(Box::new(PlayState::new()));
+    state_machine.push(Box::new(PrePlayState::new()));
 
 
     while playing {

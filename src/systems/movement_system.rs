@@ -40,16 +40,7 @@ impl MovementSystem {
     }
 
     pub fn move_ball(delta_time: f32, ball: &mut Ball) {
-        let new_x = ball.rectangle.x + ((ball.speed * ball.direction.x) * delta_time);
-        let new_y = ball.rectangle.y + ((ball.speed * ball.direction.y) * delta_time);
-
-        if new_y < 0.0 || new_y + ball.rectangle.h > GAME_HEIGHT {
-            ball.direction.y *= -1.0;
-            ball.rectangle.x += (ball.speed * ball.direction.x) * delta_time;
-            ball.rectangle.y += (ball.speed * ball.direction.y) * delta_time;
-        } else {
-            ball.rectangle.x = new_x;
-            ball.rectangle.y = new_y;
-        }
+        ball.rectangle.x += ball.speed * ball.direction.x * delta_time;
+        ball.rectangle.y += ball.speed * ball.direction.y * delta_time;
     }
 }

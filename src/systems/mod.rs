@@ -3,3 +3,5 @@ pub mod render_system;
 pub mod input_system;
 pub mod ai_system;
 pub mod collision_system;
+pub mod score_system;
+pub mod game_state_system;
