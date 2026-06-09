@@ -2,6 +2,7 @@ pub mod directions;
 pub mod state_machine;
 pub mod systems;
 pub mod entities;
+mod game;
 
 use macroquad::prelude::*;
 use crate::state_machine::play_state::PlayState;
@@ -12,7 +13,7 @@ async fn main() {
     let mut playing = true;
     let mut state_machine = StateMachine::new();
 
-    (&mut state_machine).push(Box::new(PlayState::new(true, false)));
+    (&mut state_machine).push(Box::new(PlayState::new()));
 
 
     while playing {

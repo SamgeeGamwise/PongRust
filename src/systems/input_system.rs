@@ -6,8 +6,13 @@ use crate::entities::paddle::Paddle;
 pub struct InputSystem {}
 impl InputSystem {
     pub fn update(left_paddle: &mut Paddle, right_paddle: &mut Paddle) {
-        Self::set_paddle_direction(left_paddle, W, S);
-        Self::set_paddle_direction(right_paddle, Up, Down);
+        if left_paddle.is_player {  
+            Self::set_paddle_direction(left_paddle, W, S);
+        }
+        
+        if right_paddle.is_player {
+            Self::set_paddle_direction(right_paddle, Up, Down);
+        }
     }
 
     pub fn set_paddle_direction(paddle: &mut Paddle, up_key: KeyCode, down_key: KeyCode) {

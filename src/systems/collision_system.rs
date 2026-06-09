@@ -7,8 +7,16 @@ pub struct CollisionSystem {
 }
 
 impl CollisionSystem {
-    pub fn update(delta_time: f32, left_paddle: &mut Paddle, right_paddle: &mut Paddle, ball: &mut Ball) {
+    pub fn update(left_paddle: &mut Paddle, right_paddle: &mut Paddle, ball: &mut Ball) {
+        if Self::rects_overlap(left_paddle.rectangle, ball.rectangle) {
+            ball.direction.x *= -1.0;
+            ball.rectangle.x = left_paddle.rectangle.x + left_paddle.rectangle.w;
+        }
 
+        if Self::rects_overlap(right_paddle.rectangle, ball.rectangle) {
+            ball.direction.x *= -1.0;
+            ball.rectangle.x = right_paddle.rectangle.x - ball.rectangle.w;
+        }
     }
 
     pub fn rects_overlap(a: Rect, b: Rect) -> bool {

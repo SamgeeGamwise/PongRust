@@ -18,24 +18,38 @@ impl MovementSystem {
     pub fn move_paddle(delta_time: f32, paddle: &mut Paddle) {
         match paddle.get_direction() {
             Direction::Up => {
-                paddle.position.y -= paddle.speed * delta_time ;
+                let mut new_y = paddle.rectangle.y - paddle.speed * delta_time;
+
+                if new_y < 0.0 {
+                    new_y = 0.0;
+                }
+
+                paddle.rectangle.y = new_y;
             },
             Direction::Down => {
-                paddle.position.y += paddle.speed * delta_time ;
+                let mut new_y = paddle.rectangle.y + paddle.speed * delta_time;
+
+                if new_y + paddle.rectangle.h > screen_height() {
+                    new_y = screen_height() - paddle.rectangle.h  ;
+                }
+
+                paddle.rectangle.y = new_y;
             },
             Direction::None => { },
         }
     }
 
     pub fn move_ball(delta_time: f32, ball: &mut Ball) {
-        let new_position = ball.position + ((ball.speed * ball.direction) * delta_time);
+        let new_x = ball.rectangle.x + ((ball.speed * ball.direction.x) * delta_time);
+        let new_y = ball.rectangle.y + ((ball.speed * ball.direction.y) * delta_time);
 
-        if new_position.y < 0.0 || new_position.y + ball.size.y > screen_height(){
-            println!("Bounce!");
+        if new_y < 0.0 || new_y + ball.rectangle.h > screen_height(){
             ball.direction.y *= -1.0;
-            ball.position += (ball.speed * ball.direction) * delta_time;
+            ball.rectangle.x += (ball.speed * ball.direction.x) * delta_time;
+            ball.rectangle.y += (ball.speed * ball.direction.y) * delta_time;
         } else {
-            ball.position = new_position;
+            ball.rectangle.x = new_x;
+            ball.rectangle.y = new_y;
         }
     }
 }
