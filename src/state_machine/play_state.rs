@@ -1,6 +1,8 @@
 use crate::events::game_events::GameEvent;
 use crate::events::state_events::StateEvent;
 use crate::game::Game;
+use crate::game_state::GameState;
+use crate::state_machine::game_over_state::GameOverState;
 use crate::state_machine::pre_play_state::PrePlayState;
 use super::state::State;
 
@@ -9,8 +11,8 @@ pub struct PlayState {
 }
 
 impl PlayState {
-    pub fn new() -> Self {
-        let game = Game::new(true, false);
+    pub fn new(game_state: GameState) -> Self {
+        let game = Game::new(game_state);
 
         Self {
             game
@@ -21,25 +23,17 @@ impl PlayState {
 
 
 impl State for PlayState {
-
-    fn enter(&self) -> () {
-
-    }
-
-    fn exit(&self) -> () {
-
-    }
-
     fn update(&mut self, delta_time: f32) -> StateEvent {
         self.game.update(delta_time);
 
         for event in &self.game.events {
             match event {
                 GameEvent::GameOver => {
-                    return StateEvent::Switch(Box::new(PlayState::new()));
+                    return StateEvent::Push(Box::new(GameOverState::new(self.game.game_state)));
                 },
                 GameEvent::ResetRound => {
-                    return StateEvent::Switch(Box::new(PrePlayState::new()));
+                    self.game.reset();
+                    return StateEvent::Push(Box::new(PrePlayState::new()));
                 }
                 _ => { }
             }

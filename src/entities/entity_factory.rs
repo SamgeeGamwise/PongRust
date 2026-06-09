@@ -17,7 +17,7 @@ impl EntityFactory {
 
     const BALL_HEIGHT: f32 = 10.0;
     const BALL_WIDTH: f32 = 10.0;
-    const BALL_SPEED: f32 = 350.0;
+    const BALL_SPEED: f32 = 500.0;
     const BALL_COLOR: Color = WHITE;
 
     pub fn create_paddle(is_left: bool, is_player: bool) -> Paddle {

@@ -44,6 +44,12 @@ impl StateMachine {
                 self.push(state);
             }
 
+            StateEvent::PushMany(states) => {
+                for state in states {
+                    self.push(state);
+                }
+            }
+
             StateEvent::Pop => {
                 self.pop();
             }
@@ -52,10 +58,24 @@ impl StateMachine {
                 self.pop();
                 self.push(state);
             }
+
+            StateEvent::SwitchMany(states) => {
+                self.pop();
+
+                for state in states {
+                    self.push(state);
+                }
+            }
         }
     }
     pub fn draw(&mut self) {
-        if let Some(state) = self.peek() {
+        let start_index = self
+            .states
+            .iter()
+            .rposition(|state| state.blocks_draw_below())
+            .unwrap_or(0);
+
+        for state in self.states.iter_mut().skip(start_index) {
             state.draw();
         }
     }

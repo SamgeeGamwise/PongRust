@@ -5,8 +5,11 @@ pub mod entities;
 mod game;
 pub mod events;
 pub mod timer;
+pub mod game_state;
 
 use macroquad::prelude::*;
+use crate::game_state::GameState;
+use crate::state_machine::menu_state::MenuState;
 use crate::state_machine::play_state::PlayState;
 use crate::state_machine::pre_play_state::PrePlayState;
 use crate::state_machine::state_machine::StateMachine;
@@ -28,7 +31,7 @@ async fn main() {
     let mut playing = true;
     let mut state_machine = StateMachine::new();
 
-    state_machine.push(Box::new(PrePlayState::new()));
+    state_machine.push(Box::new(MenuState::new()));
 
 
     while playing {
